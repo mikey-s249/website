@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/main.min.css" rel="stylesheet">
+	<title>Sorting Visualiser</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-primary">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">
+                <span class="fw-bold text-light">
+                    Mikey
+                </span>
+            </a>
+
+
+        </div>
+    </nav>
+
+    
+    <div class="container-lg">
+        <div class="row justify-content-center">
+            <div class="col-5 m-5 text-center">
+                <h1>Sorting Visualiser</h1>
+            </div>
+        </div>
+    </div>
+
+    <section id="Projects" class="mt-5">
+        
+        
+        <div class="container-lg">
+            <h3>Introduction</h3>
+			<p>To help me better understand the basic sorting algorithms I had been taught in my Algorithms class, I created a small piece of software to visualise a selection of these sorting algorithms. I had always found these online videos of sorting algorithm visualisation interesting, so I took inspiration from them.</p>
+			
+			
+			
+            <h3>Project Overview</h3>
+			<p>
+				To do this, I used Pygame with Python for the graphical aspect. I defined a function which took in the array that is being sorted, and a parameter to highlight values that are being worked on. 
+			</p>
+
+			<p>
+				With this complete, I just needed to implement the sorting algorithms, and call that function whenever a change was made.
+			</p>
+
+
+
+			<p>
+				First I made a simple bubble sort with no optimisations, then a second version that stopped early if no swaps were made. Then I third version that didn't check the sorted sublist at the end of the list
+				<ul>
+					<li>
+						I made three so I could compare the differences that the optimisations made
+					</li>
+				</ul>
+			</p>
+            <div style="width: 100%;">
+                <video controls style="height: 100%; width: 100%;">
+                    <source src="Media/Videos/Sorter/bubble.mp4" type="video/mp4">
+                </video>
+                <p class="text-light">Bubble Sort with optimisations on array of length 50</p>
+            </div>
+			<p>
+				Then I implemented insertion sort, quick sort and merge sort.
+			</p>
+
+            <div style="width: 100%;">
+                <video controls style="height: 100%; width: 100%;">
+                    <source src="Media/Videos/Sorter/insertion.mp4" type="video/mp4">
+                </video>
+                <p class="text-light">Insertion Sort on array of length 50</p>
+            </div>
+
+
+
+            <div style="width: 100%;">
+                <video controls style="height: 100%; width: 100%;">
+                    <source src="Media/Videos/Sorter/merge.mp4" type="video/mp4">
+                </video>
+                <p class="text-light">Merge Sort on array of length 960</p>
+            </div>
+
+            
+
+            <div style="width: 100%;">
+                <video controls style="height: 100%; width: 100%;">
+                    <source src="Media/Videos/Sorter/quick.mp4" type="video/mp4">
+                </video>
+                <p class="text-light">Quick Sort on array of length 960</p>
+            </div>
+
+
+            <p>
+                Using python's argparse, I created command line arguments to select the sorting algorithm, the size of the array to be sorted, and the speed of the simulation.
+            </p>
+
+
+            <h3>What Have I Learnt?</h3>
+            <p>
+                I now have an improved understanding of the way these common sorting algorithms work. In addition, I now know how to make proper named command line arguments.
+            </p>
+
+
+        </div>
+    </section>
+
+</body>
+</html>

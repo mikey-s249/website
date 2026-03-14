@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/main.min.css" rel="stylesheet">
+	<title>Software Rasteriser</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-primary">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">
+                <span class="fw-bold text-light">
+                    Mikey
+                </span>
+            </a>
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
+            aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="#Projects" class="nav-link">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Contacts" class="nav-link">Contacts</a>
+                    </li>
+                </ul>
+            </div> -->
+
+        </div>
+    </nav>
+
+    
+    <div class="container-lg">
+        <div class="row justify-content-center">
+            <div class="col-5 m-5 text-center">
+                <h1>Software Rasteriser</h1>
+            </div>
+        </div>
+        <!-- <p>Text</p> -->
+    </div>
+    <!-- <h1>Software Rasteriser</h1> -->
+
+    <section id="Projects" class="mt-5">
+        
+        
+        <div class="container-lg">
+            <h3>Introduction</h3>
+            <p>This project is my exploration of the concepts of rasterisation that I had learnt about in my Introduction to Computer Graphics course unit. I decided to use C++ for this project as I wanted to get more familiar with the language, and I didn't want to use python again. <br>
+            <p>It is currently able to render 3D models in .o files with a perspective projection. The models can also be transformed.</p>
+            </p>
+            <br>
+            <h3>Project Overview</h3>
+
+
+            <p>
+                Before I could start on any of the maths for rendering, I needed a way to draw pixels to the screen. I wanted a simple low level, but well documented solution, so I decided on SDL. It uses a texture which contains pixel data shown on the screen, this is updated with a texture buffer which I can write to.
+            </p>
+
+
+            <p>
+                Once that was completed, I needed to set up some Vector and Matrix classes, since they are very important in computer graphics. I also created a coordinate struct to just hold coordinates since they are needed a lot and this results in less overhead.
+                Before rendering 3D triangles, I wanted to try rendering a 2D triangle first. Since 3D triangles are projected to 2 dimensions, this code can be reused when rendering 3D triangles.
+
+                <br>
+            
+            </p>
+            <p>
+                In order to rasterise a triangle, we need to check each pixel to see if it lies within the triangle. To do this, I use the barycentric method. We take two of the sides of the triangle, and join them with the point to make a triangle and find its signed area using vectors. We then do this with the other two triangles created with the point to get three signed areas. If all 3 of these signed areas are not negative then the point is in the triangle. 
+            </p>
+            <!-- <div class="row text-center"> -->
+            <figure>
+
+                <img src="Media/Images/Rasteriser/2D Triangle.png">
+                <figcaption class="text-light">2D Triangle rendered as an image</figcaption>
+            </figure>
+            <!-- </div> -->
+
+
+            <p>
+                Now I wanted to render 3D triangles, so I needed to define a way to project 3D triangles onto a 2D plane. To start with I decided to use an orthographic projection and simple take the 3D triangles x and y coordinates and discard the z coordinate.
+            </p>
+
+            <p>
+                In order to get a better sense of the 3D projection, I wanted to render an actual model. So I wrote a class to store models in, which is instantiated by reading object (.o) files. I used this to read a cube object file.
+
+            </p>
+            
+            <figure>
+                <img src="Media/Images/Rasteriser/Cube Orthographic.png">
+                <figcaption class="text-light">3D cube, rotated and rendered with orthographic projection</figcaption>
+            </figure>
+
+
+            <p>
+                Now that the orthographic projection was working, I wanted to create a perspective projection so objects have a sense of distance. This involved a process called perspective division where you divide your x and y coordinates by the z coordinate, which causes further away objects to appear smaller.
+            </p>
+            <video autoplay controls loop>
+                <source src="Media/Videos/Rasteriser/2025-11-24 15-07-12.mp4" type="video/mp4">
+            </video>
+
+
+            <p>
+                With this working, I wanted to try and render a more complex model. So I downloaded the object file for Blender's Suzanne model and attempted to render it
+
+            </p>
+            <video autoplay controls loop>
+                <source src="Media/Videos/Rasteriser/Monkey No Depth.mp4" type="video/mp4">
+            </video>
+            <p>
+                While it did render, I noticed a few issues
+                <ul>
+                    <li>The performance was not great</li>
+                    <li>Some of the triangles at the back of the monkey were rendering in front of it</li>
+                </ul>
+                To solve the first issue, I made an optimisation using bounding volumes. Instead of checking every pixel against every triangle, I only check the pixels that lie within the smallest rectangle that encompasses the triangle. This is done by checking pixels between the minimum and maximum x and y coordinates of the triangle
+            </p>
+
+            <p>
+                The second issue, I solved using a depth buffer. Whenever we draw a pixel, we check if it's z value is less than what is currently stored in the z buffer, which is a buffer the same size as the framestore that stores the z values of the pixels plotted. In order to get z values for the pixels, I needed to interpolate them from the 3 vertices of the triangle. I did this using the Barycentric areas as weights for each vertice's z value.
+            </p>
+
+            <video autoplay controls loop>
+                <source src="Media/Videos/Rasteriser/Monkey Depth Buffer.mp4" type="video/mp4">
+            </video>
+
+            <p>
+                Here we get a much smoother animation, with the hidden surfaces correctly removed
+            </p>
+
+            <!-- <p>
+            To start, I first made code to fill in triangles in 2D, which could then be used later to fill in projected 3D triangles<br>
+            - I made vector and matrix classes, with defined operations so I could easily facilitate transformations<br>
+            - Using these vectors, I made some code that worked out whether a given pixel lied within a given triangle, and used this to draw the triangle<br>
+            <br>
+            Once I got that working, I defined the triangles in 3D space and created a simple algorithm to project them onto a 2D plane. To start I used orthographic projection to simplify things.<br>
+            - Then I used the same code to render the 2D triangles<br>
+            - With this done I could do things to the triangles that I wasn't able to do before like rotate them through the z-plane<br>
+            <br>
+            Now with all the steps in place, I was finally able to render 3D models, so I made a class to store model data in, and some code to read an `.obj` file and get the vertices<br>
+            - Using this I was able to render a cube<br>
+            - Then I implemented a back face culling mechanism so I was able to rotate the cube properly with<br>
+
+            Only works with convex polygons
+            
+            
+            </p> -->
+
+            <h3>Future Improvements</h3>
+            <p>
+                While I am happy with the progress I have made so far, there are still a lot of improvements that can be made
+
+                <ul>    
+                    <li>The CPU is used for rendering rather than the GPU which limits performance greatly. This is because I was more interested in learning and applying the rendering techniques than making a super performant rasteriser. While I don't have any plans to utilise the GPU, in the future, I may work to include more parallelism within the system</li>
+                    <li>The model reader can only read .o files that are made up of triangles. In the future I will set up a system to create triangle fans out of larger polygons</li>
+                    <li>Currently the triangles are rendered as random colours, but I would like to instead set the colour and use lighting and shading techniques</li>
+                    <li>Models are rendered with small gaps between polygons</li>
+
+                </ul>
+            </p>
+
+
+
+            <h3>What Have I Learnt?</h3>
+            <p>
+                <ul>
+                    <li>I have learnt a lot more about how c++ works, since this is my first proper project I have made with this language</li>
+                    <li>I have learnt more about the way rasterisation works, I had already learnt the theory, but applying it </li>
+
+                </ul>
+
+
+            </p>
+
+
+        </div>
+    </section>
+
+</body>
+</html>
