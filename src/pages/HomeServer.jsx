@@ -1,0 +1,41 @@
+import ProjectNav from "../components/ProjectNav"
+
+export default function HomeServer() {
+    return (
+        <>
+            <ProjectNav/>
+
+            <div class="container-lg">
+                <div class="row justify-content-center">
+                    <div class="col-5 m-5 text-center">
+                        <h1>Home Server</h1>
+                    </div>
+                </div>
+            </div>
+
+            <section id="Projects" class="mt-5">
+                
+                
+                <div class="container-lg">
+                    <h3>Introduction</h3>
+                    <p>After upgrading my PC enough times over the years, I had gathered enough spare parts to produce an entirely new pc. In addition, I had been meaning to find a place recently to automatically back up certain files such as photos. Therefore, I decided that I would try to use these old PC parts to host a server on which could store my files and more.</p>
+                    {/* <!-- Mention Nextcloud --> */}
+                    
+                    <h3>Project Overview</h3>
+                    <p>First the PC needed to be built. I had all the parts I needed apart form a case and an SSD, so I purchased those. The PC didn't have WiFi capabilities but that didn't matter since it would use ethernet.</p>
+                    {/* <!-- Picture of parts --> */}
+
+
+                    <p>Once it was build, I installed Ubuntu on it. I chose Ubuntu for its stability, documentation, and support, since it is the most widely used Linux server distribution.</p>
+                    
+                    <p>Once my operating system was working. I installed and configured an Apache web server and installed Nextcloud onto it by following the official Nextcloud documentation. With this complete, I enabled the Nextcloud configuration and started the server. This allowed me to access it on my local network using the local IP of the computer. However, more steps were needed to allow access from the internet.</p>
+                    
+                    <p>Initially, I looked to setting up port forwarding. However, my home broadband uses a CGNAT, meaning that it shares it's IP with other networks - preventing port forwarding. While I could have paid extra for a unique static IP, I instead opted for a network tunnel</p>
+
+                    <p>Using a Cloudflare Tunnel and a domain name I had purchased, I connected my domain name to the tunnel and linked it to my server. This allowed me to access the server from anywhere.</p>
+
+                </div>
+            </section>
+        </>
+    )
+}
