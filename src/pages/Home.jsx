@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
+import Contacts from "../components/Contacts"
 import ProjectCard from "../components/ProjectCard"
 import RasteriserImg from "../assets/Images/Rasteriser/Cube Orthographic.png"
 import GlitchNoteImg from "../assets/Images/GlitchNote/logo.png"
 import SorterImg from "../assets/Images/Sorter/Bubble.png"
 import PlaceholderImg from "../assets/Images/placeholder.png"
 import MonopolyImg from "../assets/Images/Monopoly/Monopoly.png"
-
+import ServerImg from "../assets/Images/Server/Nextcloud Logo.svg"
 
 export default function Home(){
 
@@ -67,7 +68,7 @@ export default function Home(){
 
                         <ProjectCard img={SorterImg} to="/sorter" title="Sorting Visualiser" description="A simple Python application that shows visualisations for different sorting algorithms" />
 
-                        <ProjectCard img={PlaceholderImg} to="/home-server" title="Home Server" description="A Nextcloud server self hosted on my own hardware" />
+                        <ProjectCard img={ServerImg} to="/home-server" title="Home Server" description="A Nextcloud server self hosted on my own hardware" />
 
                         <ProjectCard img={MonopolyImg} to="/python-monopoly" title="Python Monopoly" description="My NEA for A-Level Computer Science" />
                     </div>
@@ -77,40 +78,9 @@ export default function Home(){
                 
             </section>
 
-            <section className="bg-secondary" id="Contacts">
 
-                <div className="container-lg">
-                    <div className="row justify-content-center">
-                        <div className="col-12 m-5 text-center">
-                            <h1>Contacts</h1>
-                        </div>
-                        <div className="col-3">
-                            <p className="fw-bold">
-                                <i className="bi bi-envelope"></i> Email: <a style={{textDecoration: "none"}} href="mailto:mxstamford@icloud.com">mxstamford@icloud.com</a>
-                            </p>
-                        </div>
-                        <div className="col-3">
-                            <p className="fw-bold">
-                                <i className="bi bi-telephone"></i> Phone: 07724 221297
-                            </p>
-                        </div>
-                        <div className="col-3">
-                            <p className="fw-bold">
-                                <i className="bi bi-linkedin"></i> LinkedIn: <a style={{textDecoration: "none"}} href="https://linkedin.com/in/michael-stamford">linkedin.com/in/michael-stamford</a>
-                            </p>
-                        </div>
-                        <div className="col-3">
-                            <p className="fw-bold">
-                                <i className="bi bi-github"></i> GitHub: <a style={{textDecoration: "none"}} href="https://github.com/mikey-s249">github.com/mikey-s249</a>
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-
-                
-                
-            </section>
+            <Contacts />
+           
         </>
     )
 }

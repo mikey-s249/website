@@ -5,7 +5,7 @@ import GlitchNote from './pages/GlitchNote'
 import SortingVisualiser from './pages/SortingVisualiser'
 import HomeServer from './pages/HomeServer'
 import PythonMonopoly from './pages/PythonMonopoly'
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import './App.css'
 
@@ -13,7 +13,7 @@ import './App.css'
 function App() {
 
   return (
-    <Router>
+    <Router basename="/website">
         <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/rasteriser" element={<Rasteriser/>} />

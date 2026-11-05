@@ -1,4 +1,6 @@
 import ProjectNav from "../components/ProjectNav"
+import Contacts from "../components/Contacts"
+
 
 export default function HomeServer() {
     return (
@@ -36,6 +38,8 @@ export default function HomeServer() {
 
                 </div>
             </section>
+            {/* <Contacts/> */}
+
         </>
     )
 }
